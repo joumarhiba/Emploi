@@ -16,8 +16,9 @@ public class EmploiApplication {
 		SpringApplication.run(EmploiApplication.class, args);
 	}
 
-
+/*
 	@Bean
+
 	public CorsFilter corsFilter() {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
@@ -37,4 +38,6 @@ public class EmploiApplication {
 
 
 	}
+
+	 */
 }

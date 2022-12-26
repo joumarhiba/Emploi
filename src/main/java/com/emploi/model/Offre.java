@@ -15,8 +15,18 @@ public class Offre {
     private Long id;
     private String title;
     private String description;
-    private String image;
+    private String profil;
+    private String ville;
+    private String niveau;
+    private Long salaire;
+    private Boolean status = false;
+
+
     @ManyToOne
     @JsonIgnore
     private Admin admin;
+
+    @ManyToOne
+    @JsonIgnore
+    private Company company;
 }
