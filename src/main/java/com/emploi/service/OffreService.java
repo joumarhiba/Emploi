@@ -19,7 +19,7 @@ public class OffreService {
 
     public Offre addOffre(Offre offre){
        offre.setAdmin(new Admin(Long.valueOf(1), "admin", "admin@gmail.com", "12345678", UserRole.ADMIN, null));
-        offre.setCompany(new Company(Long.valueOf(3),"company", "company@gmail.com", "12345678", "AAAAAAAAAA", "0612347890", "string of image", null));
+        offre.setCompany(new Company(Long.valueOf(3),"company", "company@gmail.com", "12345678", "AAAAAAAAAA", "0612347890", "string of image",UserRole.COMPANY, null));
         return offreRepo.save(offre);
     }
 

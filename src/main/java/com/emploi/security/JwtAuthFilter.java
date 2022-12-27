@@ -1,7 +1,9 @@
 package com.emploi.security;
 
 import com.emploi.model.Admin;
+import com.emploi.model.Company;
 import com.emploi.service.AdminService;
+import com.emploi.service.CompanyService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +23,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtHandler jwtHandler;
     private final AdminService adminService;
 
-
+    private final CompanyService companyService;
 
     @Override
     protected void doFilterInternal(
@@ -32,8 +34,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String token;
         final boolean isTokenValid;
 
-        if(authHeader == null || !authHeader.startsWith("Bearer ")){
-            filterChain.doFilter(request,response);
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
             return;
         }
 
@@ -42,32 +44,42 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         userEmail = jwtHandler.extractEmail(token);
         userRole = jwtHandler.extractRole(token);
 
-        if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
+        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             Admin userDetails = null;
-            if("ADMIN".equals(userRole) ){
-                System.out.println( "inside jwt filter Admin");
+            Company companyDetails = null;
+            if ("ADMIN".equals(userRole)) {
+                System.out.println("inside jwt filter Admin");
                 userDetails = adminService.loadUserByEmail(userEmail);
-            } else if("COMPANY".equals(userRole)){
-                System.out.println( "inside jwt filter elseeeee");
-                //userDetails = companyService.loadUserByEmail(userEmail);
+            } else if ("COMPANY".equals(userRole)) {
+                System.out.println("inside jwt filter elseeeee");
+                companyDetails = companyService.loadUserByEmail(userEmail);
             }
 
 
-            if(userDetails != null){
+            if (userDetails != null) {
                 isTokenValid = jwtHandler.validateToken(token, userDetails);
-                if(isTokenValid) {
+                if (isTokenValid) {
                     UsernamePasswordAuthenticationToken authenticationToken =
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
-            }
+            } else if (companyDetails != null) {
+                isTokenValid = jwtHandler.validateTokenCompany(token, companyDetails);
+                if (isTokenValid) {
+                    UsernamePasswordAuthenticationToken authenticationToken =
+                            new UsernamePasswordAuthenticationToken(companyDetails, null, companyDetails.getAuthorities());
+                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+                }
+
+            } else {
+                System.out.println("something Wrong in JWTAuthFilter");
+            }
+            filterChain.doFilter(request, response);
         }
-        else {
-            System.out.println("something Wrong in JWTAuthFilter");
-        }
-        filterChain.doFilter(request,response);
     }
 }

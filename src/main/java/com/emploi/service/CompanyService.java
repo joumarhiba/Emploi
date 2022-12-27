@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,8 +27,16 @@ public class CompanyService implements UserDetailsService{
     }
 
 
+
+    public Company loadUserByEmail(String email) throws UsernameNotFoundException {
+        Optional<Company> company = companyRepo.findByEmail(email);
+        return companyRepo.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Company not found ...."));
+    }
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String emailAndRole) throws UsernameNotFoundException {
         return null;
     }
+
 }

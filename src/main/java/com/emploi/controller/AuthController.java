@@ -3,8 +3,10 @@ package com.emploi.controller;
 
 import com.emploi.helpers.AuthenticationRequest;
 import com.emploi.model.Admin;
+import com.emploi.model.Company;
 import com.emploi.security.JwtHandler;
 import com.emploi.service.AdminService;
+import com.emploi.service.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +23,7 @@ import javax.naming.AuthenticationException;
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final AdminService adminService;
+    private final CompanyService companyService;
     private final JwtHandler jwtHandler;
 
 
@@ -40,10 +43,19 @@ public class AuthController {
                         authenticationRequest.getEmail() + ":" + role,
                         authenticationRequest.getPassword())
         );
-        Admin admin = adminService.loadUserByEmail(authenticationRequest.getEmail());
+        if(role.equalsIgnoreCase("ADMIN")) {
 
-        if(admin != null){
-            return ResponseEntity.ok(jwtHandler.generateToken(admin));
+            Admin admin = adminService.loadUserByEmail(authenticationRequest.getEmail());
+            if (admin != null) {
+                return ResponseEntity.ok(jwtHandler.generateToken(admin));
+            }
+
+        }
+        else if(role.equalsIgnoreCase("COMPANY")){
+            Company company = companyService.loadUserByEmail(authenticationRequest.getEmail());
+            if(company != null) {
+                return ResponseEntity.ok(jwtHandler.generateToken(company));
+            }
         }
 
         return ResponseEntity.status(400).body("Error authenticating user");

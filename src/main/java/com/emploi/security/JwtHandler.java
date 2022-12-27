@@ -1,6 +1,7 @@
 package com.emploi.security;
 
 import com.emploi.model.Admin;
+import com.emploi.model.Company;
 import io.jsonwebtoken.Claims;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Jwts;
@@ -50,6 +51,10 @@ public class JwtHandler {
         return createToken(claims, userDetails.getEmail());
     }
 
+    public String generateToken(Company userDetails) {
+        claims.put("role", userDetails.getUserRole().toString());
+        return createToken(claims, userDetails.getEmail());
+    }
     private String createToken(Map<String, Object> claims, String subject) {
 
         return "the token is created : "+Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
@@ -60,6 +65,11 @@ public class JwtHandler {
     public Boolean validateToken(String token, Admin userDetails) {
         final String email = extractEmail(token);
         return (email.equals(userDetails.getEmail()) && !isTokenExpired(token));
+    }
+
+    public Boolean validateTokenCompany(String token, Company companyDetails) {
+        final String email = extractEmail(token);
+        return (email.equals(companyDetails.getEmail()) && !isTokenExpired(token));
     }
 
 }
