@@ -36,11 +36,26 @@ public class OffreService {
         return "L'offre "+id+ " est supprimée ...";
     }
     public Offre updateOffre(Offre offre){
-        return offreRepo.save(offre);
+        Offre existsOffre = offreRepo.findById(offre.getId()).orElse(null);
+        existsOffre.setCompany(offre.getCompany());
+        existsOffre.setNiveau(offre.getNiveau());
+        existsOffre.setProfil(offre.getProfil());
+        existsOffre.setDescription(offre.getDescription());
+        existsOffre.setSalaire(offre.getSalaire());
+        existsOffre.setVille(offre.getVille());
+        existsOffre.setTitle(offre.getTitle());
+        return offreRepo.save(existsOffre);
     }
 
     public Offre findByProfil(String profil){
         return offreRepo.findByProfil(profil);
+    }
+
+    public String updateOffreStatus(Offre offre){
+        Offre existsOffre = offreRepo.findById(offre.getId()).orElse(null);
+        existsOffre.setStatus(true);
+        offreRepo.save(existsOffre);
+        return "offre est mnt validée et son status : "+existsOffre.getStatus();
     }
 
 }

@@ -2,8 +2,10 @@ package com.emploi.service;
 
 import com.emploi.model.Admin;
 import com.emploi.model.Company;
+import com.emploi.model.Offre;
 import com.emploi.repository.AdminRepo;
 import com.emploi.repository.CompanyRepo;
+import com.emploi.repository.OffreRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +21,8 @@ import java.util.Optional;
 public class AdminService  implements UserDetailsService {
     private final AdminRepo adminRepo;
     private final CompanyService companyService;
+    private final OffreRepo offreRepo;
+
     public Admin loadUserByEmail(String email) throws UsernameNotFoundException {
         Optional<Admin> admin = adminRepo.findByEmail(email);
         return adminRepo.findByEmail(email)
@@ -42,6 +46,5 @@ public class AdminService  implements UserDetailsService {
             return company;
         }
     return null;
-
     }
 }

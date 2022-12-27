@@ -51,4 +51,10 @@ public class OffreController {
             return offreService.findByProfil(profil);
     }
 
+
+
+    @PutMapping("/updateStatus")
+    public String updateOffreStatus(@RequestBody Offre offre){
+        return offreService.updateOffreStatus(offre);
+    }
 }
