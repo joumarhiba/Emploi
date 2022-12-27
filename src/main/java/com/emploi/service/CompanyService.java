@@ -9,14 +9,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CompanyService implements UserDetailsService{
 
     private final CompanyRepo companyRepo;
 
-    public Company addOffre(Company company){
+    public Company addCompany(Company company){
         return companyRepo.save(company);
+    }
+
+    public List<Company> findAllCompanies(){
+        return companyRepo.findAll();
     }
 
 

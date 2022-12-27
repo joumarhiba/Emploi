@@ -32,10 +32,12 @@ public class Company {
 
 
 
-    public void setTelephone(String telephone) {
+    public void setTelephone(String telephone) throws Exception {
         boolean regex= Pattern.compile("(\\+212|0)([ \\-_/]*)(\\d[ \\-_/]*){9}").matcher(telephone).matches();
         if(regex){
             this.telephone = telephone;
+        }else {
+            throw new Exception("Veuillez entrer un num de tel valide !");
         }
     }
 }
