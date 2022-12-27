@@ -31,15 +31,16 @@ public class OffreService {
         return offreRepo.findAll();
     }
     public String deleteOffre(Long id){
-        offreRepo.deleteOffreById(id);
+       // offreRepo.deleteOffreById(id);
+        offreRepo.deleteById(id);
         return "L'offre "+id+ " est supprimée ...";
     }
     public Offre updateOffre(Offre offre){
         return offreRepo.save(offre);
     }
 
-    public Offre findByTitle(String title){
-        return offreRepo.findByTitle(title);
+    public Offre findByProfil(String profil){
+        return offreRepo.findByProfil(profil);
     }
 
 }

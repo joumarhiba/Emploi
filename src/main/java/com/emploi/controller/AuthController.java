@@ -30,21 +30,18 @@ public class AuthController {
     }
 
     @PostMapping("/auth/{role}")
-//    @PreAuthorize("hasAuthority('ADMIN')")
+
     public ResponseEntity<String> authenticate(
             @PathVariable String role,
             @RequestBody AuthenticationRequest authenticationRequest
     ) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                       // authenticationRequest.getEmail(),
                         authenticationRequest.getEmail() + ":" + role,
                         authenticationRequest.getPassword())
         );
         Admin admin = adminService.loadUserByEmail(authenticationRequest.getEmail());
-        //Admin admin = adminService.loadUserByEmail(authenticationRequest.getEmail() + ":" + role);
 
-        System.out.println(admin + "tfuu");
         if(admin != null){
             return ResponseEntity.ok(jwtHandler.generateToken(admin));
         }

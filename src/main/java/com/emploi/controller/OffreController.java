@@ -41,14 +41,14 @@ public class OffreController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Offre> deleteOffre(@PathVariable("id") Long id){
-        offreService.deleteOffre(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public String deleteOffre(@PathVariable("id") Long id){
+       String delete = offreService.deleteOffre(id);
+        return delete;
     }
 
-    @PostMapping("/search/{title}")
-    public Offre searchOffre(@PathVariable("title") String title){
-            return offreService.findByTitle(title);
+    @PostMapping("/search/{profil}")
+    public Offre searchOffre(@PathVariable("profil") String profil){
+            return offreService.findByProfil(profil);
     }
 
 }
