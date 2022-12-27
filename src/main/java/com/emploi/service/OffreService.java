@@ -4,6 +4,7 @@ import com.emploi.exception.UserNotFoundException;
 import com.emploi.model.Offre;
 import com.emploi.repository.OffreRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,12 +25,16 @@ public class OffreService {
     public List<Offre> findAllOffres(){
         return offreRepo.findAll();
     }
-    public void deleteOffre(Long id){
+    public String deleteOffre(Long id){
         offreRepo.deleteOffreById(id);
-        return;
+        return "L'offre "+id+ " est supprimée ...";
     }
     public Offre updateOffre(Offre offre){
         return offreRepo.save(offre);
+    }
+
+    public Offre findByTitle(String title){
+        return offreRepo.findByTitle(title);
     }
 
 }

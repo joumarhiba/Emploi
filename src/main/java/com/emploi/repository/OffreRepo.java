@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OffreRepo extends JpaRepository<Offre, Long> {
     void deleteOffreById(Long id);
+
+    Offre findByTitle(String title);
 }

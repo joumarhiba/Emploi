@@ -45,4 +45,10 @@ public class OffreController {
         offreService.deleteOffre(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping("/search/{title}")
+    public Offre searchOffre(@PathVariable("title") String title){
+            return offreService.findByTitle(title);
+    }
+
 }
