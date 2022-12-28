@@ -29,7 +29,6 @@ public class Company implements UserDetails {
     private String password;
     private String adresse;
     private String telephone;
-    private String image;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     @OneToMany(mappedBy = "company")
