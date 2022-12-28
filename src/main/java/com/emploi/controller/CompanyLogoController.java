@@ -21,7 +21,6 @@ public class CompanyLogoController {
 
     private final CompanyLogoService companyLogoService;
 
-
     @PostMapping("/upload")
     public CompanyLogo uploadFile(@RequestParam("image") MultipartFile image, Company company) throws Exception {
         CompanyLogo attachment = null;
@@ -33,7 +32,6 @@ public class CompanyLogoController {
                 attachment.getFileName(),image.getContentType(), image.getBytes(), attachment.getCompany_id()
         );
     }
-
 
     @GetMapping("/download/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable Long fileId) throws Exception {

@@ -18,16 +18,6 @@ public class CompanyLogo {
     private byte[] data;
     private Long company_id;
 
-     /*public CompanyLogo(String fileName, String fileType, Long fileSize, Long company_id) {
-        this.fileName = fileName;
-        this.fileType = fileType;
-        this.fileSize = fileSize;
-        this.company_id = company_id;
-
-    }
-
-      */
-
     public CompanyLogo(String fileName, String fileType, byte[] data, Long company_id) {
         this.fileName = fileName;
         this.fileType = fileType;
