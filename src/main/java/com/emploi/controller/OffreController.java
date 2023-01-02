@@ -16,6 +16,13 @@ import java.util.List;
 public class OffreController {
     private final OffreService offreService;
 
+
+    @GetMapping("/validatedOffres")
+    public ResponseEntity<List<Offre>> getValidatedOffres(){
+        List<Offre> validatedOffres = offreService.getValidatedOffres();
+        return new ResponseEntity<>(validatedOffres, HttpStatus.OK);
+    }
+
      @GetMapping("/all")
     public ResponseEntity<List<Offre>> getAllOffres(){
         List<Offre> offres = offreService.findAllOffres();

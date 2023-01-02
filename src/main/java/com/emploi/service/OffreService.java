@@ -58,4 +58,9 @@ public class OffreService {
         return "offre est mnt validée et son status : "+existsOffre.getStatus();
     }
 
+
+    public List<Offre> getValidatedOffres() {
+        return offreRepo.getValidatedOffres();
+    }
+
 }

@@ -18,15 +18,16 @@ public class CompanyController {
     private final CompanyService companyService;
     private final CompanyRepo companyRepo;
 
+
     @GetMapping("/all")
-    public ResponseEntity<List<Company>> getAllOffres(){
+    public ResponseEntity<List<Company>> getAllCompanies(){
         List<Company> companies = companyService.findAllCompanies();
         return new ResponseEntity<>(companies, HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<Company> addCompany(@RequestBody Company company) throws Exception {
-        Company savedCompany = companyRepo.save(company);
+        Company savedCompany = companyService.addCompany(company);
         return new ResponseEntity<>(savedCompany, HttpStatus.CREATED);
     }
 }
