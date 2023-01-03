@@ -38,7 +38,7 @@ public class AuthController {
             @PathVariable String role,
             @RequestBody AuthenticationRequest authenticationRequest
     ) {
-        authenticationManager.authenticate(
+                authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authenticationRequest.getEmail() + ":" + role,
                         authenticationRequest.getPassword())

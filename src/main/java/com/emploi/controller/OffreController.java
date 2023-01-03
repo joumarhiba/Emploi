@@ -1,5 +1,6 @@
 package com.emploi.controller;
 
+import com.emploi.model.Company;
 import com.emploi.model.Offre;
 import com.emploi.service.OffreService;
 import lombok.RequiredArgsConstructor;
@@ -59,9 +60,14 @@ public class OffreController {
     }
 
 
+    @PostMapping("/companyOffres")
+    public List<Offre> findOffreByCompany(@RequestBody Company company){
+        return offreService.findOffreByCompany(company);
+    }
+
 
     @PutMapping("/updateStatus")
-    public String updateOffreStatus(@RequestBody Offre offre){
+    public Offre updateOffreStatus(@RequestBody Offre offre){
         return offreService.updateOffreStatus(offre);
     }
 }

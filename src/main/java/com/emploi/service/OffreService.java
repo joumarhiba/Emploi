@@ -51,11 +51,15 @@ public class OffreService {
         return offreRepo.findByProfil(profil);
     }
 
-    public String updateOffreStatus(Offre offre){
+    public List<Offre> findOffreByCompany(Company company) {
+        return offreRepo.findOffreByCompany(company);
+    }
+
+    public Offre updateOffreStatus(Offre offre){
         Offre existsOffre = offreRepo.findById(offre.getId()).orElse(null);
         existsOffre.setStatus(true);
         offreRepo.save(existsOffre);
-        return "offre est mnt validée et son status : "+existsOffre.getStatus();
+        return existsOffre;
     }
 
 

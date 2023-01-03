@@ -2,16 +2,16 @@ package com.emploi.helpers;
 
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode
 @ToString
 @RequiredArgsConstructor
 
 public class AuthenticationRequest {
 
-    private final String email;
-    private final String password;
-    private final String userRole;
+    private String email;
+    private String password;
+    private String userRole;
+
 
 }
